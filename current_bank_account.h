@@ -13,6 +13,7 @@ class Current_Bank_Account : public Bank_Account {
     public:
         Current_Bank_Account() : Bank_Account(), monthly_free_transactions(0), withdrawals(0), deposits(0), commission(0) {Number_Of_Accounts += 1;}
         Current_Bank_Account(const Bank_Account& bank_account, int monthly_free_transactions, int withdrawals, int deposits, float commission): Bank_Account(bank_account), monthly_free_transactions(monthly_free_transactions), withdrawals(withdrawals), deposits(deposits), commission(commission) {Number_Of_Accounts += 1;}
+        Current_Bank_Account(string first_name, string last_name, string cnp, string email, string phone_number, int day, int month, int year, float Current_Balance, int monthly_free_transactions, int withdrawals, int deposits, float commission): Bank_Account(first_name, last_name, cnp, email, phone_number, day, month, year, Current_Balance), monthly_free_transactions(monthly_free_transactions), withdrawals(withdrawals), deposits(deposits), commission(commission) {}
         Current_Bank_Account(const Current_Bank_Account& bank_account)
         {
             this->first_name = bank_account.first_name;

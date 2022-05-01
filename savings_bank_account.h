@@ -13,6 +13,7 @@ class Savings_Bank_Account : public Bank_Account {
     public:
         Savings_Bank_Account(): Bank_Account(), intrest_rate(0), period(0) {Number_Of_Accounts += 1;}
         Savings_Bank_Account(const Bank_Account& bank_account, float intrest_rate, int period): Bank_Account(bank_account), intrest_rate(intrest_rate), period(period) {Number_Of_Accounts += 1;}
+        Savings_Bank_Account(string first_name, string last_name, string cnp, string email, string phone_number, int day, int month, int year, float Current_Balance, float intrest_rate, int period): Bank_Account(first_name, last_name, cnp, email, phone_number, day, month, year, Current_Balance), intrest_rate(intrest_rate), period(period) {}
         Savings_Bank_Account(const Savings_Bank_Account& bank_account)
         {
             this->first_name = bank_account.first_name;

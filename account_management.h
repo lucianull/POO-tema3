@@ -33,11 +33,26 @@ template <typename T> class Account_Management {
             }
         }
 
-        void addBankAccount(T& bank_account)
+        // void addBankAccount(T& bank_account)
+        // {
+        //     T* pointer = new T(bank_account);
+        //     if(Savings_Bank_Account* q = dynamic_cast < Savings_Bank_Account* > (pointer))
+        //         cout <<*q << '\n';
+        //     this->Bank_Accounts.push_back(pointer);
+        // }
+
+        void addSavingsBankAccount(string first_name, string last_name, string cnp, string email, string phone_number, int day, int month, int year, float Current_Balance, float intrest_rate, int period)
         {
-            T* pointer = new T(bank_account);
+            Savings_Bank_Account* pointer = new Savings_Bank_Account(first_name, last_name, cnp, email, phone_number, day, month, year, Current_Balance, intrest_rate, period);
             this->Bank_Accounts.push_back(pointer);
         }
+
+        void addCurrentBankAccount(string first_name, string last_name, string cnp, string email, string phone_number, int day, int month, int year, float Current_Balance, int monthly_free_transactions, int withdrawals, int deposits, float commission)
+        {
+            Current_Bank_Account* pointer = new Current_Bank_Account(first_name, last_name, cnp, email, phone_number, day, month, year, Current_Balance, monthly_free_transactions, withdrawals, deposits, commission);
+            this->Bank_Accounts.push_back(pointer);
+        }
+
 
         void DeleteBankAccount(int index)
         {
@@ -58,12 +73,8 @@ template <typename T> class Account_Management {
             {
                 if(Savings_Bank_Account* pointer = dynamic_cast < Savings_Bank_Account* > (this->Bank_Accounts[index - 1]))
                     cout <<*pointer << '\n';
-                else
-                    cout << "nu e savings\n";
                 if(Current_Bank_Account* pointer = dynamic_cast < Current_Bank_Account* > (this->Bank_Accounts[index - 1]))
                     cout << *pointer << '\n';
-                else
-                    cout << "nu e current\n";
 //                cout << *this->Bank_Accounts[index - 1] << '\n';
             }
             else

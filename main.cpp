@@ -16,7 +16,11 @@ int main()
 //    cout << a1;
     Savings_Bank_Account a2(a1, 30, 12);
     Account_Management < Bank_Account > a;
-    a.addBankAccount(a2);
+    a.addSavingsBankAccount("Mitrea", "Razvan", "342323232", "mitrearupetot@gmail.com", "032838288", 31, 10, 2001, 1334, 0.034, 12);
+    a.addCurrentBankAccount("Mitrea", "Razvan", "342323232", "mitrearupetot@gmail.com", "032838288", 31, 10, 2001, 1334, 5, 10, 5, 5.5);
     a.showBankAccount(1);
+    a.showBankAccount(2);
+//    a.addBankAccount(a2);
+//    a.showBankAccount(1);
     return 0;
 }
