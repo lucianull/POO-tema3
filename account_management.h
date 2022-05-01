@@ -6,7 +6,7 @@
 
 using namespace std;
 
-template <typename T> class Account_Management {
+template <class T> class Account_Management {
     private:
         vector < T* > Bank_Accounts;
     public:
@@ -91,22 +91,32 @@ template <typename T> class Account_Management {
         {
             return Current_Bank_Account::Number_Of_Accounts;
         }
-        friend Account_Management<T>& operator+= (Account_Management<T>&, const T*);
-        friend ostream& operator<< (ostream&, const Account_Management <T>&);
+        Account_Management& operator+= (T* pointer)
+        {
+            this->Bank_Accounts.push_back(pointer);
+            return *this;
+        }
+        template <class U>
+        friend ostream& operator<<(ostream& out, const Account_Management <U>& accounts);
 };
 
-template <typename T >
-Account_Management<T>& operator+= (Account_Management<T>& accounts, const T* pointer)
-{
-    accounts.Bank_Accounts.push_back(pointer);
-    return accounts;
-}
+//template <class T >
+//Account_Management<T>& operator+= (Account_Management<T>& accounts, const T* pointer)
+//{
+//    accounts.Bank_Accounts.push_back(pointer);
+//    return accounts;
+//}
 
-template <typename T>
+template <class T>
 ostream& operator<< (ostream& out, const Account_Management <T>& accounts)
 {
-    for(auto it : accounts.Bank_Accounts)
-        out << *it << '\n';
+    for(T* it : accounts.Bank_Accounts)
+    {
+        if(Current_Bank_Account* pointer = dynamic_cast < Current_Bank_Account* > (it))
+            cout << *pointer << '\n';
+        if(Savings_Bank_Account* pointer = dynamic_cast < Savings_Bank_Account* > (it))
+            cout << *pointer << '\n';
+    }
     return out;
 }
 

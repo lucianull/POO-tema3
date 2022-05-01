@@ -31,8 +31,8 @@ class Savings_Bank_Account : public Bank_Account {
         }
         ~Savings_Bank_Account() {Number_Of_Accounts -= 1;}
 
-        float getIntrestRate() {return intrest_rate;}
-        int getPeriod() {return period;}
+        float getIntrestRate() const {return intrest_rate;}
+        int getPeriod() const {return period;}
         void setIntrestRate(float intrest_rate) {this->intrest_rate = intrest_rate;}
         void setPeriod(int period) {this->period = period;}
 

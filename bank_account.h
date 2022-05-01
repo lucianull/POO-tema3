@@ -34,6 +34,11 @@ class Bank_Account : public Person{
                 Transaction_History.pop_back();
         }
 
+        Date getOpenDate() const {return Open_Date;}
+        float getCurrentBalance() const {return Current_Balance;}
+        void setOpenDate(Date &Open_Date) {this->Open_Date = Open_Date;}
+        void setCurrentBalance(float Current_Balance) {this->Current_Balance = Current_Balance;}
+
         Bank_Account& operator= (const Bank_Account& bank_account)
         {
             this->first_name = bank_account.first_name;

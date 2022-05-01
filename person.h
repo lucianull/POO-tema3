@@ -28,11 +28,11 @@ class Person {
         void setCNP(string cnp) {this->cnp = cnp;}
         void setEmail(string email) {this->email = email;}
         void setPhoneNumber(string telephone_number) {this->phone_number = telephone_number;}
-        string getFirstName() {return this->first_name;}
-        string getLastName() {return this->last_name;}
-        string getCNP() {return this->cnp;}
-        string getEmail() {return this->email;}
-        string getPhoneNumber() {return this->phone_number;}
+        string getFirstName() const {return this->first_name;}
+        string getLastName() const {return this->last_name;}
+        string getCNP() const {return this->cnp;}
+        string getEmail() const {return this->email;}
+        string getPhoneNumber() const {return this->phone_number;}
 
         Person& operator= (const Person & person)
         {

@@ -37,10 +37,10 @@ class Current_Bank_Account : public Bank_Account {
         void setWithdrawals(int withdrawals) {this->withdrawals = withdrawals;}
         void setDeposits(int deposits) {this->deposits = deposits;}
         void setCommission(float commission) {this->commission = commission;}
-        int getMonthlyFreeTransactions() {return monthly_free_transactions;}
-        int getWithdrawals() {return withdrawals;}
-        int getDeposits() {return deposits;}
-        float getCommission() {return commission;}
+        int getMonthlyFreeTransactions() const {return monthly_free_transactions;}
+        int getWithdrawals() const {return withdrawals;}
+        int getDeposits() const {return deposits;}
+        float getCommission() const {return commission;}
 
         void Make_Transaction(float ammount, bool c)
         {
