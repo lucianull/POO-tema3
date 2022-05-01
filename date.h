@@ -43,7 +43,7 @@ istream& operator>> (istream& in, Date& date)
 ostream& operator<< (ostream& out, const Date& date)
 {
     out << date.day << ' ' << date.month << ' ' << date.year;
-    return out; 
+    return out;
 }
 
 #endif // DATE_H_INCLUDED

@@ -46,7 +46,7 @@ class Current_Bank_Account : public Bank_Account {
             if(ammount == 0)
                 return;
             if(Current_Balance + ammount - c * commission < 0)
-                throw "Insufficient funds";
+                throw "Insufficient funds\n";
             Current_Balance += ammount - commission * c;
             if(ammount < 0)
                 withdrawals += 1;
@@ -74,7 +74,15 @@ class Current_Bank_Account : public Bank_Account {
             return *this;
         }
         static int getAccountsNumber() {return Number_Of_Accounts;}
+
+        friend ostream& operator<< (ostream&, const Current_Bank_Account&);
 };
+
+ostream& operator<< (ostream& out, const Current_Bank_Account& account)
+{
+    out << account.first_name << ' ' << account.last_name << ' ' << account.cnp << ' ' << account.cnp << ' ' << account.phone_number << ' ' << account.Open_Date << ' ' << account.Current_Balance << ' ' << account.monthly_free_transactions << ' ' << account.withdrawals << ' ' << account.deposits << ' ' << account.commission;
+    return out;
+}
 
 int Current_Bank_Account::Number_Of_Accounts = 0;
 

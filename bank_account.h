@@ -14,7 +14,7 @@ class Bank_Account : public Person{
         vector < pair < int, Date > > Transaction_History;
     public:
         Bank_Account(): Person(), Open_Date(), Current_Balance(0), Transaction_History() {}
-        Bank_Account(const Person& Holder, Date Open_Date, float Current_Balance): Person(Holder), Open_Date(Open_Date), Current_Balance(Current_Balance) {}
+        Bank_Account(const Person& Holder, Date& Open_Date, float Current_Balance): Person(Holder), Open_Date(Open_Date), Current_Balance(Current_Balance), Transaction_History() {}
         Bank_Account(const Bank_Account& bank_account)
         {
             this->first_name = bank_account.first_name;
@@ -48,8 +48,20 @@ class Bank_Account : public Person{
                 this->Transaction_History.push_back({it.first, it.second});
             return *this;
         }
+        friend istream& operator>> (istream&, Bank_Account&);
+        friend ostream& operator<< (ostream&, const Bank_Account&);
 
 };
 
+istream& operator>> (istream& in, Bank_Account& bank_account)
+{
+    in >> bank_account.first_name >> bank_account.last_name >> bank_account.cnp >> bank_account.email >> bank_account.phone_number >> bank_account.Open_Date >> bank_account.Current_Balance;
+    return in;
+}
+ostream& operator<< (ostream& out, const Bank_Account& bank_account)
+{
+    out << bank_account.first_name << ' ' << bank_account.last_name << ' ' << bank_account.cnp << ' ' << bank_account.email << ' ' << bank_account.phone_number << ' ' << bank_account.Open_Date << ' ' << bank_account.Current_Balance;
+    return out;
+}
 
 #endif // BANK_ACCOUNT_H_INCLUDED

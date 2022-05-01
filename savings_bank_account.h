@@ -39,7 +39,7 @@ class Savings_Bank_Account : public Bank_Account {
         void Make_Transaction(float ammount)
         {
             if(ammount < 0 && Current_Balance < -1 * ammount)
-                throw "Insufficient funds";
+                throw "Insufficient funds\n";
             Current_Balance += ammount;
         }
 
@@ -62,7 +62,14 @@ class Savings_Bank_Account : public Bank_Account {
             return *this;
         }
         static int getAccountsNumber() {return Number_Of_Accounts;}
+
+        friend ostream& operator<< (ostream&, const Savings_Bank_Account&);
 };
+
+ostream& operator<< (ostream& out, const Savings_Bank_Account& account)
+{
+    out << account.first_name << ' ' << account.last_name << ' ' << account.cnp << ' ' << account.cnp << ' ' << account.phone_number << ' ' << account.Open_Date << ' ' << account.Current_Balance << ' ' << account.intrest_rate << ' ' << account.period;
+}
 
 int Savings_Bank_Account::Number_Of_Accounts = 0;
 
