@@ -32,15 +32,6 @@ template <class T> class Account_Management {
                 delete pointer;
             }
         }
-
-        // void addBankAccount(T& bank_account)
-        // {
-        //     T* pointer = new T(bank_account);
-        //     if(Savings_Bank_Account* q = dynamic_cast < Savings_Bank_Account* > (pointer))
-        //         cout <<*q << '\n';
-        //     this->Bank_Accounts.push_back(pointer);
-        // }
-
         void addSavingsBankAccount(string first_name, string last_name, string cnp, string email, string phone_number, int day, int month, int year, float Current_Balance, float intrest_rate, int period)
         {
             Savings_Bank_Account* pointer = new Savings_Bank_Account(first_name, last_name, cnp, email, phone_number, day, month, year, Current_Balance, intrest_rate, period);
@@ -75,13 +66,14 @@ template <class T> class Account_Management {
                     cout <<*pointer << '\n';
                 if(Current_Bank_Account* pointer = dynamic_cast < Current_Bank_Account* > (this->Bank_Accounts[index - 1]))
                     cout << *pointer << '\n';
-//                cout << *this->Bank_Accounts[index - 1] << '\n';
             }
             else
             {
                 throw "There is no account with this index\n";
             }
         }
+
+
 
         int getSavingsAccountsNumber()
         {
@@ -96,16 +88,36 @@ template <class T> class Account_Management {
             this->Bank_Accounts.push_back(pointer);
             return *this;
         }
+
+        Account_Management& operator= (const Account_Management <T>& accounts)
+        {
+            while(!accounts.Bank_Accounts.empty())
+                accounts.Bank_Accounts.pop_back();
+            T* pointer;
+            for(auto it : accounts.Bank_Accounts)
+            {
+                pointer = new T(*it);
+                this->Bank_Accounts.push_back(pointer);
+            }
+            return *this;
+        }
+
         template <class U>
         friend ostream& operator<<(ostream& out, const Account_Management <U>& accounts);
 };
 
-//template <class T >
-//Account_Management<T>& operator+= (Account_Management<T>& accounts, const T* pointer)
-//{
-//    accounts.Bank_Accounts.push_back(pointer);
-//    return accounts;
-//}
+
+//template <>
+//class Account_Management <Bank_Account> {
+//    public:
+//        void ShowSavingsAccounts_OneYearIntrest()
+//        {
+//            for(Bank_Account* it : Bank_Accounts)
+//                if(Savings_Bank_Account* pointer = dynamic_cast < Savings_Bank_Account* > (it))
+//                    if(pointer->getPeriod() == 12)
+//                        cout << *pointer << '\n';
+//        }
+//};
 
 template <class T>
 ostream& operator<< (ostream& out, const Account_Management <T>& accounts)

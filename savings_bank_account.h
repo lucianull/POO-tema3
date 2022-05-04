@@ -36,12 +36,13 @@ class Savings_Bank_Account : public Bank_Account {
         void setIntrestRate(float intrest_rate) {this->intrest_rate = intrest_rate;}
         void setPeriod(int period) {this->period = period;}
 
-        void AddIntrest() {this->Current_Balance = this->Current_Balance * (1 + this->intrest_rate);}
-        void Make_Transaction(float ammount)
+        void AddIntrest(Date date) {this->Current_Balance = this->Current_Balance * (1 + this->intrest_rate); Transaction_History.push_back({this->Current_Balance, date});}
+        void Make_Transaction(float ammount, Date date)
         {
             if(ammount < 0 && Current_Balance < -1 * ammount)
                 throw "Insufficient funds\n";
             Current_Balance += ammount;
+            Transaction_History.push_back({this->Current_Balance, date});
         }
 
 
@@ -64,12 +65,29 @@ class Savings_Bank_Account : public Bank_Account {
         }
         static int getAccountsNumber() {return Number_Of_Accounts;}
 
+        friend istream& operator>> (istream&, Savings_Bank_Account&);
         friend ostream& operator<< (ostream&, const Savings_Bank_Account&);
+
+        void Print()
+        {
+            cout << first_name << ' ' << last_name << ' ' << cnp << ' ' << phone_number << ' ' << Open_Date << ' ' << Current_Balance << ' ' << intrest_rate << ' ' << period;
+        }
+
+        void Read()
+        {
+            cin >> first_name >> last_name >> cnp >> email >> phone_number >> Open_Date >> Current_Balance >> intrest_rate >> period;
+        }
 };
+
+istream& operator>> (istream& in, Savings_Bank_Account& account)
+{
+    in >> account.first_name >> account.last_name >> account.cnp >> account.email >> account.phone_number >> account.Open_Date >> account.Current_Balance >> account.intrest_rate >> account.period;
+    return in;
+}
 
 ostream& operator<< (ostream& out, const Savings_Bank_Account& account)
 {
-    out << account.first_name << ' ' << account.last_name << ' ' << account.cnp << ' ' << account.cnp << ' ' << account.phone_number << ' ' << account.Open_Date << ' ' << account.Current_Balance << ' ' << account.intrest_rate << ' ' << account.period;
+    out << account.first_name << ' ' << account.last_name << ' ' << account.cnp << ' ' << account.email << ' ' << account.phone_number << ' ' << account.Open_Date << ' ' << account.Current_Balance << ' ' << account.intrest_rate << ' ' << account.period;
 }
 
 int Savings_Bank_Account::Number_Of_Accounts = 0;

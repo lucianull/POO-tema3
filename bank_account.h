@@ -11,7 +11,7 @@ class Bank_Account : public Person{
     protected:
         Date Open_Date;
         float Current_Balance;
-        vector < pair < int, Date > > Transaction_History;
+        vector < pair < float, Date > > Transaction_History;
     public:
         Bank_Account(): Person(), Open_Date(), Current_Balance(0), Transaction_History() {}
         Bank_Account(const Person& Holder, Date& Open_Date, float Current_Balance): Person(Holder), Open_Date(Open_Date), Current_Balance(Current_Balance), Transaction_History() {}
@@ -56,6 +56,15 @@ class Bank_Account : public Person{
         }
         friend istream& operator>> (istream&, Bank_Account&);
         friend ostream& operator<< (ostream&, const Bank_Account&);
+
+        virtual void Print()
+        {
+            cout << first_name << ' ' << last_name << ' ' << cnp << ' ' << email << ' ' << phone_number << ' ' << Open_Date << ' ' << Current_Balance;
+        }
+        virtual void Read()
+        {
+            cin >> first_name >> last_name >> cnp >> email >> phone_number >> Open_Date >> Current_Balance;
+        }
 
 };
 

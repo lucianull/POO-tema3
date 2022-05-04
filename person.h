@@ -46,6 +46,16 @@ class Person {
 
         friend istream& operator>> (istream& in, Person& person);
         friend ostream& operator<< (ostream& out, const Person& person);
+
+        virtual void Print()
+        {
+            cout << first_name << ' ' << last_name << ' ' << cnp << ' ' << email << ' ' << phone_number;
+        }
+
+        virtual void Read()
+        {
+            cin >> first_name >> last_name >> cnp >> email >> phone_number;
+        }
 };
 
 istream& operator>> (istream& in, Person& person)

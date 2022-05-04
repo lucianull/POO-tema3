@@ -42,7 +42,7 @@ class Current_Bank_Account : public Bank_Account {
         int getDeposits() const {return deposits;}
         float getCommission() const {return commission;}
 
-        void Make_Transaction(float ammount, bool c)
+        void Make_Transaction(float ammount, bool c, Date date)
         {
             if(ammount == 0)
                 return;
@@ -53,6 +53,7 @@ class Current_Bank_Account : public Bank_Account {
                 withdrawals += 1;
             else
                 deposits += 1;
+            this->Transaction_History.push_back({this->Current_Balance, date});
         }
 
         Current_Bank_Account& operator= (const Current_Bank_Account& bank_account)
@@ -76,12 +77,29 @@ class Current_Bank_Account : public Bank_Account {
         }
         static int getAccountsNumber() {return Number_Of_Accounts;}
 
+        friend istream& operator>> (istream&, Current_Bank_Account&);
         friend ostream& operator<< (ostream&, const Current_Bank_Account&);
+
+        void Print()
+        {
+            cout << first_name << ' ' << last_name << ' ' << cnp << ' ' << phone_number << ' ' << Open_Date << ' ' << Current_Balance << ' ' << monthly_free_transactions << ' ' << withdrawals << ' ' << deposits << ' ' << commission;
+        }
+
+        void Read()
+        {
+            cin >> first_name >> last_name >> cnp >> phone_number >> Open_Date >> Current_Balance >> monthly_free_transactions >> withdrawals >> deposits >> commission;
+        }
 };
+
+istream& operator>> (istream& in, Current_Bank_Account& account)
+{
+    in >> account.first_name >> account.last_name >> account.cnp >> account.phone_number >> account.Open_Date >> account.Current_Balance >> account.monthly_free_transactions >> account.withdrawals >> account.deposits >> account.commission;
+    return in;
+}
 
 ostream& operator<< (ostream& out, const Current_Bank_Account& account)
 {
-    out << account.first_name << ' ' << account.last_name << ' ' << account.cnp << ' ' << account.cnp << ' ' << account.phone_number << ' ' << account.Open_Date << ' ' << account.Current_Balance << ' ' << account.monthly_free_transactions << ' ' << account.withdrawals << ' ' << account.deposits << ' ' << account.commission;
+    out << account.first_name << ' ' << account.last_name << ' ' << account.cnp << ' ' << account.email << ' ' << account.phone_number << ' ' << account.Open_Date << ' ' << account.Current_Balance << ' ' << account.monthly_free_transactions << ' ' << account.withdrawals << ' ' << account.deposits << ' ' << account.commission;
     return out;
 }
 
