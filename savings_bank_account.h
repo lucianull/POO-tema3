@@ -11,9 +11,9 @@ class Savings_Bank_Account : public Bank_Account {
         float intrest_rate;
         int period;
     public:
-        Savings_Bank_Account(): Bank_Account(), intrest_rate(0), period(0) {Number_Of_Accounts += 1;}
-        Savings_Bank_Account(const Bank_Account& bank_account, float intrest_rate, int period): Bank_Account(bank_account), intrest_rate(intrest_rate), period(period) {Number_Of_Accounts += 1;}
-        Savings_Bank_Account(string first_name, string last_name, string cnp, string email, string phone_number, int day, int month, int year, float Current_Balance, float intrest_rate, int period): Bank_Account(first_name, last_name, cnp, email, phone_number, day, month, year, Current_Balance), intrest_rate(intrest_rate), period(period) {}
+        Savings_Bank_Account(): Bank_Account(), intrest_rate(0), period(0) {Number_Of_Accounts ++;}
+        Savings_Bank_Account(const Bank_Account& bank_account, float intrest_rate, int period): Bank_Account(bank_account), intrest_rate(intrest_rate), period(period) {Number_Of_Accounts ++;}
+        Savings_Bank_Account(string first_name, string last_name, string cnp, string email, string phone_number, int day, int month, int year, float Current_Balance, float intrest_rate, int period): Bank_Account(first_name, last_name, cnp, email, phone_number, day, month, year, Current_Balance), intrest_rate(intrest_rate), period(period) {Number_Of_Accounts++;}
         Savings_Bank_Account(const Savings_Bank_Account& bank_account)
         {
             this->first_name = bank_account.first_name;
@@ -27,9 +27,9 @@ class Savings_Bank_Account : public Bank_Account {
             this->period = bank_account.period;
             for(pair < int, Date > it : bank_account.Transaction_History)
                 this->Transaction_History.push_back({it.first, it.second});
-            Number_Of_Accounts += 1;
+            Number_Of_Accounts ++;
         }
-        ~Savings_Bank_Account() {Number_Of_Accounts -= 1;}
+        ~Savings_Bank_Account() {Number_Of_Accounts --;}
 
         float getIntrestRate() const {return intrest_rate;}
         int getPeriod() const {return period;}
@@ -88,6 +88,7 @@ istream& operator>> (istream& in, Savings_Bank_Account& account)
 ostream& operator<< (ostream& out, const Savings_Bank_Account& account)
 {
     out << account.first_name << ' ' << account.last_name << ' ' << account.cnp << ' ' << account.email << ' ' << account.phone_number << ' ' << account.Open_Date << ' ' << account.Current_Balance << ' ' << account.intrest_rate << ' ' << account.period;
+    return out;
 }
 
 int Savings_Bank_Account::Number_Of_Accounts = 0;

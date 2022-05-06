@@ -3,6 +3,7 @@
 
 #include "current_bank_account.h"
 #include "savings_bank_account.h"
+#include "exception.h"
 
 using namespace std;
 
@@ -55,7 +56,7 @@ template <class T> class Account_Management {
                 delete pointer;
             }
             else
-                throw "There is no account with this index\n";
+                throw newex;
         }
 
         void showBankAccount(int index)
@@ -69,10 +70,36 @@ template <class T> class Account_Management {
             }
             else
             {
-                throw "There is no account with this index\n";
+                throw newex;
             }
         }
 
+        void Transaction(int index, float amount, Date& date, bool commission)
+        {
+            if(index <= this->Bank_Accounts.size())
+            {
+                Bank_Account* pointer = Bank_Accounts[index - 1];
+                if(Current_Bank_Account* q = dynamic_cast < Current_Bank_Account* > (pointer))
+                    q->Make_Transaction(amount, commission, date);
+                if(Savings_Bank_Account* q = dynamic_cast < Savings_Bank_Account* > (pointer))
+                    q->Make_Transaction(amount, date);
+            }
+            else
+            {
+                throw newex;
+            }
+        }
+
+        void PrintTransactions(int index)
+        {
+            if(index <= this->Bank_Accounts.size())
+            {
+                Bank_Account *pointer = this->Bank_Accounts[index - 1];
+                pointer->PrintTransactions();
+            }
+            else
+                throw newex;
+        }
 
 
         int getSavingsAccountsNumber()
@@ -100,6 +127,11 @@ template <class T> class Account_Management {
                 this->Bank_Accounts.push_back(pointer);
             }
             return *this;
+        }
+
+        bool isEmpty()
+        {
+            return Bank_Accounts.empty();
         }
 
         template <class U>

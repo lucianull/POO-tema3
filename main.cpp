@@ -15,11 +15,13 @@ void PrintMenu()
     printf("2. Show bank account with a given index\n");
     printf("3. Show all bank accounts\n");
     printf("4. Delete bank account with a given index\n");
-    printf("5. Delete all bank accounts");
+    printf("5. Delete all bank accounts\n");
     printf("6. Print the number of Savings Bank Accounts\n");
     printf("7. Print the number of Current Bank Accounts\n");
     printf("8. Print all Savings Bank Accounts that have the interest period of one year\n");
-    printf("9. Exit\n");
+    printf("9. Add balance to a bank account\n");
+    printf("10. Print transaction history of a bank account\n");
+    printf("11. Exit\n");
 }
 
 void AddBankAccount()
@@ -42,29 +44,100 @@ void AddBankAccount()
     {
         printf("Introduce the details of the account: <First Name> <Last Name> <CNP> <Email> <Phone Number> <day> <month> <year> <balance> <monthly free transactions> <commission>\n");
         string first_name, last_name, cnp, email, phone_number;
-        int day, month, year, period, monthly_free_transactions;
-        float balance, intrest_rate, commission;
+        int day, month, year, monthly_free_transactions;
+        float balance, commission;
         cin >> first_name >> last_name >> cnp >> email >> phone_number >> day >> month >> year >> balance >> monthly_free_transactions >> commission;
         Accounts.addCurrentBankAccount(first_name, last_name, cnp, email, phone_number, day, month, year, balance, monthly_free_transactions, 0, 0, commission);
     }
 }
 
-void ShowBankAccount() {}
+void ShowBankAccount()
+{
+    int index;
+    printf("Specify the index: ");
+    cin >> index;
+    try
+    {
+        Accounts.showBankAccount(index);
+    }
+    catch (indexException& Exception)
+    {
+        cout << Exception.what() << '\n';
+    }
+}
 
 void ShowAllBankAccounts()
 {
     cout << Accounts;
 }
 
-void DeleteBankAccount() {}
+void DeleteBankAccount()
+{
+    int index;
+    printf("Specify the index: ");
+    cin >> index;
+    try
+    {
+        Accounts.DeleteBankAccount(index);
+        cout << "Account successfully deleted\n";
+    }
+    catch (indexException& Exception)
+    {
+        cout << Exception.what() << '\n';
+    }
+}
 
-void DeleteAllBankAccounts() {}
+void DeleteAllBankAccounts()
+{
+    while(!Accounts.isEmpty())
+        Accounts.DeleteBankAccount(1);
+    cout << "Accounts successfully deleted\n";
+}
 
-void PrintNrSavingsAccounts() {}
+void PrintNrSavingsAccounts()
+{
+    cout << "The number of Saving Bank Accounts is: "<<Savings_Bank_Account::getAccountsNumber() << '\n';
+}
 
-void PrintNrCurrentAccounts() {}
+void PrintNrCurrentAccounts()
+{
+    cout << "The number of Current Bank Accounts is: "<<Current_Bank_Account::getAccountsNumber() << '\n';
+}
 
 void PrintSavingAccounts() {}
+
+void addBalance()
+{
+    Date date;
+    int index;
+    float amount;
+    bool commission;
+    printf("Specify the <index> <amount> <day> <month> <year> <commission as a 0 or 1>: ");
+    cin >> index >> amount >> date >> commission;
+    try
+    {
+        Accounts.Transaction(index, amount, date, commission);
+    }
+    catch (indexException& Exception)
+    {
+        cout << Exception.what() << '\n';
+    }
+}
+
+void printTransactionHistory()
+{
+    int index;
+    printf("Specify the index: ");
+    cin >> index;
+    try
+    {
+        Accounts.PrintTransactions(index);
+    }
+    catch (indexException& Exception)
+    {
+        cout << Exception.what() << '\n';
+    }
+}
 
 void Run()
 {
@@ -118,7 +191,17 @@ void Run()
                 }
             case 9:
                 {
-                    return ;
+                    addBalance();
+                    break;
+                }
+            case 10:
+                {
+                    printTransactionHistory();
+                    break;
+                }
+            case 11:
+                {
+                    return;
                 }
         }
         printf("%s", DELIMITER);
@@ -128,27 +211,5 @@ void Run()
 int main()
 {
     Run();
-
-
-
-
-//    // Person* person = new Person("Mitrea", "Razvan", "30232832", "mitrearupetot@gmail.com", "0673737733");
-//    // Date* date = new Date(31, 10, 2001);
-//    // Bank_Account* bank_account = new Bank_Account(*person, date, 1334);
-//    Bank_Account a1;
-//    in >> a1;
-////    cout << a1;
-//    Savings_Bank_Account a2(a1, 30, 12);
-//    Account_Management < Bank_Account > a;
-//    a.addSavingsBankAccount("Mitrea", "Razvan", "342323232", "mitrearupetot@gmail.com", "032838288", 31, 10, 2001, 1334, 0.034, 12);
-//    Current_Bank_Account *p = new Current_Bank_Account("Mitrea", "Razvan", "342323232", "mitrearupetot@gmail.com", "032838288", 31, 10, 2001, 1334, 5, 10, 5, 65);
-////    Bank_Account *q = new Bank_Account("Mitrea", "Razvan", "342323232", "mitrearupetot@gmail.com", "032838288", 31, 10, 2001, 1334);
-//    a += p;
-//    a.addCurrentBankAccount("Mitrea", "Razvan", "342323232", "mitrearupetot@gmail.com", "032838288", 31, 10, 2001, 1334, 5, 10, 5, 5.5);
-////    a.showBankAccount(1);
-////    a.showBankAccount(2);
-//    cout << a;
-////    a.addBankAccount(a2);
-////    a.showBankAccount(1);
     return 0;
 }

@@ -66,6 +66,13 @@ class Bank_Account : public Person{
             cin >> first_name >> last_name >> cnp >> email >> phone_number >> Open_Date >> Current_Balance;
         }
 
+        void PrintTransactions() const
+        {
+            cout << "Transaction History\n";
+            for(pair < float, Date > it : Transaction_History)
+                cout << it.first << ' ' << it.second << '\n';
+        }
+
 };
 
 istream& operator>> (istream& in, Bank_Account& bank_account)
