@@ -116,12 +116,22 @@ template <class T> class Account_Management {
             return *this;
         }
 
+        void ShowYearlySavingsAccounts()
+        {
+            for(T* it : Bank_Accounts)
+            {
+                if(Savings_Bank_Account* pointer = dynamic_cast < Savings_Bank_Account* > (it))
+                    if(pointer->getPeriod() == 12)
+                        cout << *pointer << '\n';
+            }
+        }
+
         Account_Management& operator= (const Account_Management <T>& accounts)
         {
             while(!accounts.Bank_Accounts.empty())
                 accounts.Bank_Accounts.pop_back();
             T* pointer;
-            for(auto it : accounts.Bank_Accounts)
+            for(T* it : accounts.Bank_Accounts)
             {
                 pointer = new T(*it);
                 this->Bank_Accounts.push_back(pointer);

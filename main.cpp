@@ -32,7 +32,7 @@ void AddBankAccount()
     cin.getline(s, 20);
     if(!strcmp(s, "Savings"))
     {
-        printf("Introduce the details of the account: <First Name> <Last Name> <CNP> <Email> <Phone Number> <day> <month> <year> <balance> <intrest rate> <period>\n");
+        printf("Introduce the details of the account: <First Name> <Last Name> <CNP> <Email> <Phone Number> <day> <month> <year> <balance> <interest rate> <period>\n");
         string first_name, last_name, cnp, email, phone_number;
         int day, month, year, period;
         float balance, intrest_rate;
@@ -104,7 +104,10 @@ void PrintNrCurrentAccounts()
     cout << "The number of Current Bank Accounts is: "<<Current_Bank_Account::getAccountsNumber() << '\n';
 }
 
-void PrintSavingAccounts() {}
+void PrintSavingAccounts()
+{
+    Accounts.ShowYearlySavingsAccounts();
+}
 
 void addBalance()
 {
