@@ -5,7 +5,6 @@
 
 using namespace std;
 
-Account_Management < Bank_Account > Accounts;
 
 void PrintMenu()
 {
@@ -24,7 +23,7 @@ void PrintMenu()
     printf("11. Exit\n");
 }
 
-void AddBankAccount()
+void AddBankAccount(Account_Management < Bank_Account >& Accounts)
 {
     printf("Specify the type of account: Savings/Current\n");
     char s[20];
@@ -51,7 +50,7 @@ void AddBankAccount()
     }
 }
 
-void ShowBankAccount()
+void ShowBankAccount(Account_Management < Bank_Account >& Accounts)
 {
     int index;
     printf("Specify the index: ");
@@ -66,12 +65,12 @@ void ShowBankAccount()
     }
 }
 
-void ShowAllBankAccounts()
+void ShowAllBankAccounts(Account_Management < Bank_Account >& Accounts)
 {
     cout << Accounts;
 }
 
-void DeleteBankAccount()
+void DeleteBankAccount(Account_Management < Bank_Account >& Accounts)
 {
     int index;
     printf("Specify the index: ");
@@ -87,29 +86,29 @@ void DeleteBankAccount()
     }
 }
 
-void DeleteAllBankAccounts()
+void DeleteAllBankAccounts(Account_Management < Bank_Account >& Accounts)
 {
     while(!Accounts.isEmpty())
         Accounts.DeleteBankAccount(1);
     cout << "Accounts successfully deleted\n";
 }
 
-void PrintNrSavingsAccounts()
+void PrintNrSavingsAccounts(Account_Management < Bank_Account >& Accounts)
 {
     cout << "The number of Saving Bank Accounts is: "<<Savings_Bank_Account::getAccountsNumber() << '\n';
 }
 
-void PrintNrCurrentAccounts()
+void PrintNrCurrentAccounts(Account_Management < Bank_Account >& Accounts)
 {
     cout << "The number of Current Bank Accounts is: "<<Current_Bank_Account::getAccountsNumber() << '\n';
 }
 
-void PrintSavingAccounts()
+void PrintSavingAccounts(Account_Management < Bank_Account >& Accounts)
 {
     Accounts.ShowYearlySavingsAccounts();
 }
 
-void addBalance()
+void addBalance(Account_Management < Bank_Account >& Accounts)
 {
     Date date;
     int index;
@@ -127,7 +126,7 @@ void addBalance()
     }
 }
 
-void printTransactionHistory()
+void printTransactionHistory(Account_Management < Bank_Account >& Accounts)
 {
     int index;
     printf("Specify the index: ");
@@ -144,6 +143,7 @@ void printTransactionHistory()
 
 void Run()
 {
+    Account_Management < Bank_Account > Accounts;
     const char DELIMITER[]="\n<------------------------------------------>\n";
     int option;
     PrintMenu();
@@ -154,52 +154,52 @@ void Run()
         switch(option) {
             case 1:
                 {
-                    AddBankAccount();
+                    AddBankAccount(Accounts);
                     break;
                 }
             case 2:
                 {
-                    ShowBankAccount();
+                    ShowBankAccount(Accounts);
                     break;
                 }
             case 3:
                 {
-                    ShowAllBankAccounts();
+                    ShowAllBankAccounts(Accounts);
                     break;
                 }
             case 4:
                 {
-                    DeleteBankAccount();
+                    DeleteBankAccount(Accounts);
                     break;
                 }
             case 5:
                 {
-                    DeleteAllBankAccounts();
+                    DeleteAllBankAccounts(Accounts);
                     break;
                 }
             case 6:
                 {
-                    PrintNrSavingsAccounts();
+                    PrintNrSavingsAccounts(Accounts);
                     break;
                 }
             case 7:
                 {
-                    PrintNrCurrentAccounts();
+                    PrintNrCurrentAccounts(Accounts);
                     break;
                 }
             case 8:
                 {
-                    PrintSavingAccounts();
+                    PrintSavingAccounts(Accounts);
                     break;
                 }
             case 9:
                 {
-                    addBalance();
+                    addBalance(Accounts);
                     break;
                 }
             case 10:
                 {
-                    printTransactionHistory();
+                    printTransactionHistory(Accounts);
                     break;
                 }
             case 11:

@@ -149,17 +149,19 @@ template <class T> class Account_Management {
 };
 
 
-//template <>
-//class Account_Management <Bank_Account> {
-//    public:
-//        void ShowSavingsAccounts_OneYearIntrest()
-//        {
-//            for(Bank_Account* it : Bank_Accounts)
-//                if(Savings_Bank_Account* pointer = dynamic_cast < Savings_Bank_Account* > (it))
-//                    if(pointer->getPeriod() == 12)
-//                        cout << *pointer << '\n';
-//        }
-//};
+template <>
+class Account_Management <Savings_Bank_Account> {
+    private:
+        vector < Savings_Bank_Account* > Bank_Accounts;
+    public:
+       void ShowSavingsAccounts_OneYearIntrest()
+       {
+           for(Savings_Bank_Account* it : Bank_Accounts)
+               if(Savings_Bank_Account* pointer = dynamic_cast < Savings_Bank_Account* > (it))
+                   if(pointer->getPeriod() == 12)
+                       cout << *pointer << '\n';
+       }
+};
 
 template <class T>
 ostream& operator<< (ostream& out, const Account_Management <T>& accounts)

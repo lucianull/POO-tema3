@@ -14,8 +14,8 @@ class Bank_Account : public Person{
         vector < pair < float, Date > > Transaction_History;
     public:
         Bank_Account(): Person(), Open_Date(), Current_Balance(0), Transaction_History() {}
-        Bank_Account(const Person& Holder, Date& Open_Date, float Current_Balance): Person(Holder), Open_Date(Open_Date), Current_Balance(Current_Balance), Transaction_History() {}
-        Bank_Account(string first_name, string last_name, string cnp, string email, string phone_number, int day, int month, int year, float Current_Balance): Person(first_name, last_name, cnp, email, phone_number), Open_Date(day, month, year), Current_Balance(Current_Balance), Transaction_History() {}
+        Bank_Account(const Person& Holder, Date& Open_Date, float Current_Balance): Person(Holder), Open_Date(Open_Date), Current_Balance(Current_Balance), Transaction_History() {this->Transaction_History.push_back({Current_Balance, Open_Date});}
+        Bank_Account(string first_name, string last_name, string cnp, string email, string phone_number, int day, int month, int year, float Current_Balance): Person(first_name, last_name, cnp, email, phone_number), Open_Date(day, month, year), Current_Balance(Current_Balance), Transaction_History() {this->Transaction_History.push_back({Current_Balance, Open_Date});}
         Bank_Account(const Bank_Account& bank_account)
         {
             this->first_name = bank_account.first_name;
