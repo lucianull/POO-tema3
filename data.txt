@@ -1,0 +1,13 @@
+6
+Current
+Mircea Foarfeca 932993298474 mircea@gmail.com 0732636263 9 3 2022 100 10 0 0 5
+Current
+Mihai Stefan 84378438332 stefanmihai@gmail.com 0777327377 20 6 2021 1111.11 5 0 0 3
+Current
+Andrei Popescu 32939292922 popy@gmail.com 0757747474 31 10 2002 43894 100 0 0 5
+Savings
+Misu Prastie 8732738728332 prastie@yahoo.com 0773277222 13 9 2009 3838.4 1.25 3
+Savings
+Relu Aurelu 7327327373256 relu@gmail.com 0777272372 10 5 2021 34500.5 3.5 12
+Savings
+Marcel Casetofon 382838283238 marcelul@yahoo.com 07367273272 13 5 2022 30.5 3.25 12

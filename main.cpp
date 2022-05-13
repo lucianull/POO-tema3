@@ -23,29 +23,31 @@ void PrintMenu()
     printf("11. Exit\n");
 }
 
-void AddBankAccount(Account_Management < Bank_Account >& Accounts)
+void AddBankAccount(istream& in, Account_Management < Bank_Account >& Accounts, bool ok)
 {
     printf("Specify the type of account: Savings/Current\n");
     char s[20];
-    cin.get();
-    cin.getline(s, 20);
+    in.get();
+    in.getline(s, 20);
     if(!strcmp(s, "Savings"))
     {
-        printf("Introduce the details of the account: <First Name> <Last Name> <CNP> <Email> <Phone Number> <day> <month> <year> <balance> <interest rate> <period>\n");
+        if(ok)
+            printf("Introduce the details of the account: <First Name> <Last Name> <CNP> <Email> <Phone Number> <day> <month> <year> <balance> <interest rate> <period>\n");
         string first_name, last_name, cnp, email, phone_number;
         int day, month, year, period;
         float balance, intrest_rate;
-        cin >> first_name >> last_name >> cnp >> email >> phone_number >> day >> month >> year >> balance >> intrest_rate >> period;
+        in >> first_name >> last_name >> cnp >> email >> phone_number >> day >> month >> year >> balance >> intrest_rate >> period;
         Savings_Bank_Account* pointer = new Savings_Bank_Account(first_name, last_name, cnp, email, phone_number, day, month, year, balance, intrest_rate, period);
         Accounts += pointer;
     }
     else
     {
-        printf("Introduce the details of the account: <First Name> <Last Name> <CNP> <Email> <Phone Number> <day> <month> <year> <balance> <monthly free transactions> <commission>\n");
+        if(ok)
+            printf("Introduce the details of the account: <First Name> <Last Name> <CNP> <Email> <Phone Number> <day> <month> <year> <balance> <monthly free transactions> <commission>\n");
         string first_name, last_name, cnp, email, phone_number;
         int day, month, year, monthly_free_transactions;
         float balance, commission;
-        cin >> first_name >> last_name >> cnp >> email >> phone_number >> day >> month >> year >> balance >> monthly_free_transactions >> commission;
+        in >> first_name >> last_name >> cnp >> email >> phone_number >> day >> month >> year >> balance >> monthly_free_transactions >> commission;
         Accounts.addCurrentBankAccount(first_name, last_name, cnp, email, phone_number, day, month, year, balance, monthly_free_transactions, 0, 0, commission);
     }
 }
@@ -57,7 +59,7 @@ void ShowBankAccount(Account_Management < Bank_Account >& Accounts)
     cin >> index;
     try
     {
-        Accounts.showBankAccount(index);
+        Accounts.showBankAccount(index, cout);
     }
     catch (indexException& Exception)
     {
@@ -141,9 +143,37 @@ void printTransactionHistory(Account_Management < Bank_Account >& Accounts)
     }
 }
 
+void EXIT(Account_Management < Bank_Account >& Accounts)
+{
+    int n;
+    ofstream out("data.txt");
+    n = Accounts.getCurrentAccountsNumber() + Accounts.getSavingsAccountsNumber();
+    out << n << '\n';
+    for(int i = 1; i <= n; i++)
+        if(Accounts.AccountType(i) == 0)
+        {
+            out << "Savings\n";
+            Accounts.showBankAccount(i, out);
+        }
+        else
+        {
+            out << "Current\n";
+            Accounts.showBankAccount(i, out);
+        }
+    out.close();
+}
+
 void Run()
 {
     Account_Management < Bank_Account > Accounts;
+
+    ifstream in("data.txt");
+    int n;
+    in >> n;
+    for(int i = 1; i <= n; i++)
+        AddBankAccount(in, Accounts, 0);
+    in.close();
+
     const char DELIMITER[]="\n<------------------------------------------>\n";
     int option;
     PrintMenu();
@@ -154,7 +184,7 @@ void Run()
         switch(option) {
             case 1:
                 {
-                    AddBankAccount(Accounts);
+                    AddBankAccount(cin, Accounts, 1);
                     break;
                 }
             case 2:
@@ -204,6 +234,7 @@ void Run()
                 }
             case 11:
                 {
+                    EXIT(Accounts);
                     return;
                 }
         }

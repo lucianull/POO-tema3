@@ -59,14 +59,14 @@ template <class T> class Account_Management {
                 throw newex;
         }
 
-        void showBankAccount(int index)
+        void showBankAccount(int index, ostream& out)
         {
             if(index <= this->Bank_Accounts.size())
             {
                 if(Savings_Bank_Account* pointer = dynamic_cast < Savings_Bank_Account* > (this->Bank_Accounts[index - 1]))
-                    cout <<*pointer << '\n';
+                    out <<*pointer << '\n';
                 if(Current_Bank_Account* pointer = dynamic_cast < Current_Bank_Account* > (this->Bank_Accounts[index - 1]))
-                    cout << *pointer << '\n';
+                    out << *pointer << '\n';
             }
             else
             {
@@ -104,11 +104,11 @@ template <class T> class Account_Management {
 
         int getSavingsAccountsNumber()
         {
-            return Savings_Bank_Account::Number_Of_Accounts;
+            return Savings_Bank_Account::getAccountsNumber();
         }
         int getCurrentAccountsNumber()
         {
-            return Current_Bank_Account::Number_Of_Accounts;
+            return Current_Bank_Account::getAccountsNumber();
         }
         Account_Management& operator+= (T* pointer)
         {
@@ -124,6 +124,18 @@ template <class T> class Account_Management {
                     if(pointer->getPeriod() == 12)
                         cout << *pointer << '\n';
             }
+        }
+
+        bool AccountType(int index)
+        {
+            if(index <= this->Bank_Accounts.size())
+            {
+                if(Savings_Bank_Account* pointer = dynamic_cast < Savings_Bank_Account* > (Bank_Accounts[index - 1]))
+                    return 0;
+                return 1;
+            }
+            else
+                throw newex;
         }
 
         Account_Management& operator= (const Account_Management <T>& accounts)
